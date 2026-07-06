@@ -303,7 +303,7 @@ textarea{resize:vertical; min-height:90px;}
 
 /* animations */
 @keyframes fadeUp{from{opacity:0; transform:translateY(16px);} to{opacity:1; transform:translateY(0);}}
-.reveal{opacity:0; animation:fadeUp .6s var(--ease) forwards;}
+.reveal{opacity:0; animation:fadeUp .6s var(--ease) forwards; animation-play-state:paused;}
 .d1{animation-delay:.05s;} .d2{animation-delay:.12s;} .d3{animation-delay:.19s;} .d4{animation-delay:.26s;} .d5{animation-delay:.33s;}
 
 /* skeleton loader */
@@ -315,6 +315,112 @@ footer{padding:24px 28px 40px; color:var(--text-faint); font-size:12.5px; displa
 @media (prefers-reduced-motion: reduce){
   *{animation-duration:.001ms !important; transition-duration:.001ms !important;}
 }
+
+/* ============================================================
+   LIVE-APP INTERACTION LAYER — preloader, ripple, toasts, tilt,
+   magnetic buttons, pulse indicators, tooltips
+   ============================================================ */
+
+/* Preloader */
+#preloader{
+  position:fixed; inset:0; z-index:999; background:var(--bg);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px;
+  transition:opacity .6s var(--ease), visibility .6s var(--ease);
+}
+#preloader.hide{opacity:0; visibility:hidden; pointer-events:none;}
+.pre-mark{
+  width:56px; height:56px; border-radius:16px; background:var(--grad);
+  display:flex; align-items:center; justify-content:center; color:#fff; font-family:'Space Grotesk'; font-weight:700; font-size:22px;
+  box-shadow:var(--shadow-glow); animation:preSpin 1.8s var(--ease) infinite;
+}
+@keyframes preSpin{0%,100%{transform:scale(1) rotate(0);}50%{transform:scale(1.08) rotate(8deg);}}
+.pre-bar{width:180px; height:3px; border-radius:3px; background:var(--border); overflow:hidden;}
+.pre-bar-fill{height:100%; width:0%; background:var(--grad); border-radius:3px; transition:width 1.4s var(--ease);}
+.pre-label{font-size:12px; color:var(--text-faint); font-family:'JetBrains Mono';}
+
+/* Live status pulse */
+.live-status{display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--text-muted);}
+.live-pulse{position:relative; width:8px; height:8px; border-radius:50%; background:var(--success); flex-shrink:0;}
+.live-pulse::after{
+  content:''; position:absolute; inset:-4px; border-radius:50%; border:2px solid var(--success);
+  animation:pulseRing 1.8s ease-out infinite;
+}
+@keyframes pulseRing{0%{transform:scale(.6); opacity:.9;}100%{transform:scale(2.1); opacity:0;}}
+
+/* Ripple */
+.btn{position:relative; overflow:hidden;}
+.ripple{
+  position:absolute; border-radius:50%; background:rgba(255,255,255,.45); transform:scale(0);
+  animation:rippleAnim .6s ease-out; pointer-events:none;
+}
+.btn-ghost .ripple{background:rgba(108,99,255,.25);}
+@keyframes rippleAnim{to{transform:scale(3.2); opacity:0;}}
+
+/* Magnetic CTA handled via JS transform + this smoothing */
+#openModalBtn, .btn-primary{ transition: transform .18s var(--ease), box-shadow .25s var(--ease); }
+
+/* Tilt cards */
+.tilt{ transform-style:preserve-3d; will-change:transform; }
+.tilt-shine{
+  position:absolute; inset:0; border-radius:inherit; pointer-events:none; opacity:0;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,.12), transparent 60%);
+  transition:opacity .3s var(--ease);
+}
+.stat-card:hover .tilt-shine{opacity:1;}
+
+/* Toasts */
+#toastStack{ position:fixed; bottom:22px; right:22px; z-index:200; display:flex; flex-direction:column; gap:10px; }
+.toast{
+  display:flex; align-items:center; gap:10px; background:var(--bg-elevated); border:1px solid var(--border-strong);
+  border-radius:14px; padding:13px 16px; box-shadow:0 20px 50px rgba(0,0,0,.35); font-size:13.5px; min-width:240px;
+  transform:translateX(120%); opacity:0; transition:all .45s var(--ease);
+}
+.toast.show{transform:translateX(0); opacity:1;}
+.toast .toast-icon{width:26px; height:26px; border-radius:8px; display:flex; align-items:center; justify-content:center; color:#fff; flex-shrink:0;}
+.toast.success .toast-icon{background:var(--success);}
+.toast.info .toast-icon{background:var(--cyan);}
+
+/* Chart tooltip + interactive dots */
+.chart-svg-wrap{position:relative;}
+.chart-dot{
+  fill:var(--bg-elevated); stroke:var(--violet); stroke-width:2.5; r:5; cursor:pointer;
+  transition:r .2s var(--ease);
+}
+.chart-dot:hover{ r:7; }
+.chart-tooltip{
+  position:absolute; background:var(--bg-elevated); border:1px solid var(--border-strong); border-radius:10px;
+  padding:6px 10px; font-size:12px; font-family:'JetBrains Mono'; color:var(--text); pointer-events:none;
+  opacity:0; transform:translate(-50%,-130%); transition:opacity .15s var(--ease); white-space:nowrap; box-shadow:var(--shadow-soft);
+}
+.chart-tooltip.show{opacity:1;}
+
+/* Typing cursor for search placeholder */
+.type-cursor{display:inline-block; width:1px; background:var(--text-faint); margin-left:1px; animation:blink 1s step-end infinite;}
+@keyframes blink{50%{opacity:0;}}
+
+/* Sidebar sliding active indicator */
+.nav-group{position:relative;}
+.nav-highlight{
+  position:absolute; left:0; right:0; height:38px; border-radius:10px;
+  background:linear-gradient(135deg, rgba(108,99,255,.16), rgba(62,198,224,.12));
+  transition:transform .35s var(--ease), opacity .2s var(--ease); pointer-events:none; z-index:0; opacity:0;
+}
+
+/* Count-up flash on stat value update */
+.stat-value.flash{ animation:flashVal .5s var(--ease); }
+@keyframes flashVal{0%{color:var(--violet);}100%{color:var(--text);}}
+
+/* Row entrance animation for table */
+tbody tr{animation:rowIn .4s var(--ease) backwards;}
+@keyframes rowIn{from{opacity:0; transform:translateX(-8px);}to{opacity:1; transform:translateX(0);}}
+
+/* Button press feedback */
+.btn:active{ transform:scale(.97); }
+.feed-item:active{transform:scale(.99);}
+
+/* Notification bell shake */
+@keyframes bellShake{0%,100%{transform:rotate(0);}20%{transform:rotate(14deg);}40%{transform:rotate(-12deg);}60%{transform:rotate(8deg);}80%{transform:rotate(-6deg);}}
+.icon-btn.shake svg{animation:bellShake .6s var(--ease);}
 
 /* Responsive */
 @media (max-width: 1024px){
