@@ -1,28 +1,47 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { RiMoonLine, RiSunLine, RiMenuLine, RiCloseLine, RiDownloadLine } from 'react-icons/ri'
 
 const navLinks = [
-  { label: 'About', href: '#about' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'About',      href: '#about'      },
+  { label: 'Experience', href: '#experience'  },
+  { label: 'Projects',   href: '#projects'    },
+  { label: 'Skills',     href: '#skills'      },
+  { label: 'Contact',    href: '#contact'     },
 ]
 
 export default function Navbar({ isDark, toggleTheme }) {
-  const [scrolled, setScrolled] = useState(false)
-  const [mobileOpen, setMobileOpen] = useState(false)
-  const [active, setActive] = useState('')
+  const [scrolled,    setScrolled]    = useState(false)
+  const [mobileOpen,  setMobileOpen]  = useState(false)
+  const [activeSection, setActiveSection] = useState('')
 
+  /* Scroll shadow */
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    const onScroll = () => setScrolled(window.scrollY > 30)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  /* Active-section via IntersectionObserver */
+  useEffect(() => {
+    const ids = navLinks.map(l => l.href.slice(1))
+    const observers = []
+
+    ids.forEach(id => {
+      const el = document.getElementById(id)
+      if (!el) return
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveSection(`#${id}`) },
+        { threshold: 0.35 }
+      )
+      obs.observe(el)
+      observers.push(obs)
+    })
+
+    return () => observers.forEach(o => o.disconnect())
   }, [])
 
   const handleNav = (href) => {
-    setActive(href)
     setMobileOpen(false)
     document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
   }
@@ -32,79 +51,121 @@ export default function Navbar({ isDark, toggleTheme }) {
       <motion.nav
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? 'glass shadow-lg shadow-black/20 dark:shadow-black/40'
-            : 'bg-transparent'
-        }`}
+        transition={{ duration: 0.65, ease: 'easeOut' }}
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+        style={{
+          background: scrolled ? 'var(--bg-glass)' : 'transparent',
+          backdropFilter: scrolled ? 'blur(20px)' : 'none',
+          WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
+          borderBottom: scrolled ? '1px solid var(--border-default)' : '1px solid transparent',
+          boxShadow: scrolled ? 'var(--shadow-card)' : 'none',
+        }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 md:h-20">
+          <div className="flex items-center justify-between h-16 md:h-[4.5rem]">
 
             {/* Logo */}
             <motion.a
               href="#"
-              whileHover={{ scale: 1.05 }}
-              className="flex items-center gap-2"
+              onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+              className="flex items-center gap-2.5 select-none"
             >
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold text-lg"
-                style={{ background: 'linear-gradient(135deg, #6C63FF, #3EC6E0)' }}>
+              <div
+                className="w-9 h-9 rounded-xl flex items-center justify-center text-white font-bold text-sm shadow-glow-sm"
+                style={{ background: 'linear-gradient(135deg, #6C63FF, #3EC6E0)' }}
+              >
                 HR
               </div>
-              <span className="font-bold text-lg hidden sm:block gradient-text">Heman Raj</span>
+              <span className="font-bold text-base hidden sm:block gradient-text tracking-tight">
+                Heman Raj
+              </span>
             </motion.a>
 
-            {/* Desktop Links */}
+            {/* Desktop nav links */}
             <div className="hidden md:flex items-center gap-1">
-              {navLinks.map((link) => (
-                <button
-                  key={link.href}
-                  onClick={() => handleNav(link.href)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                    active === link.href
-                      ? 'gradient-text bg-primary/10'
-                      : isDark
-                        ? 'text-gray-300 hover:text-white hover:bg-white/5'
-                        : 'text-gray-600 hover:text-gray-900 hover:bg-black/5'
-                  }`}
-                >
-                  {link.label}
-                </button>
-              ))}
+              {navLinks.map(link => {
+                const isActive = activeSection === link.href
+                return (
+                  <button
+                    key={link.href}
+                    onClick={() => handleNav(link.href)}
+                    className="relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200"
+                    style={{
+                      color: isActive ? '#6C63FF' : 'var(--text-secondary)',
+                    }}
+                  >
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-pill"
+                        className="absolute inset-0 rounded-xl"
+                        style={{ background: 'rgba(108,99,255,0.1)' }}
+                        transition={{ type: 'spring', bounce: 0.2, duration: 0.4 }}
+                      />
+                    )}
+                    <span className="relative">{link.label}</span>
+                  </button>
+                )
+              })}
             </div>
 
             {/* Right controls */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
+              {/* Theme toggle */}
               <motion.button
-                whileHover={{ scale: 1.1 }}
+                whileHover={{ scale: 1.1, rotate: 15 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={toggleTheme}
-                className={`p-2 rounded-lg transition-all duration-200 ${
-                  isDark ? 'text-gray-300 hover:text-white hover:bg-white/10' : 'text-gray-600 hover:text-gray-900 hover:bg-black/10'
-                }`}
+                aria-label="Toggle theme"
+                className="p-2.5 rounded-xl transition-all duration-200"
+                style={{
+                  color: 'var(--text-secondary)',
+                  background: 'var(--bg-elevated)',
+                  border: '1px solid var(--border-default)',
+                }}
               >
-                {isDark ? <RiSunLine size={20} /> : <RiMoonLine size={20} />}
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.span
+                    key={isDark ? 'sun' : 'moon'}
+                    initial={{ rotate: -30, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 30, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="block"
+                  >
+                    {isDark ? <RiSunLine size={18} /> : <RiMoonLine size={18} />}
+                  </motion.span>
+                </AnimatePresence>
               </motion.button>
 
-              {/* ✅ FIXED: correct path and filename */}
+              {/* Resume download */}
               <motion.a
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.04, y: -1 }}
+                whileTap={{ scale: 0.96 }}
                 href="/resume.pdf"
                 download="Heman_Raj_Resume.pdf"
-                className="hidden sm:flex items-center gap-2 btn-primary text-sm py-2 px-4"
+                className="hidden sm:flex items-center gap-1.5 btn-primary text-xs py-2 px-3.5"
+                style={{ borderRadius: '0.75rem' }}
               >
-                <RiDownloadLine size={16} />
+                <RiDownloadLine size={15} />
                 Resume
               </motion.a>
 
-              <button
+              {/* Mobile menu toggle */}
+              <motion.button
+                whileTap={{ scale: 0.92 }}
                 onClick={() => setMobileOpen(true)}
-                className="md:hidden p-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/10"
+                aria-label="Open menu"
+                className="md:hidden p-2.5 rounded-xl transition-all duration-200"
+                style={{
+                  color: 'var(--text-secondary)',
+                  background: 'var(--bg-elevated)',
+                  border: '1px solid var(--border-default)',
+                }}
               >
-                <RiMenuLine size={22} />
-              </button>
+                <RiMenuLine size={20} />
+              </motion.button>
             </div>
 
           </div>
@@ -115,52 +176,82 @@ export default function Navbar({ isDark, toggleTheme }) {
       <AnimatePresence>
         {mobileOpen && (
           <>
+            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobileOpen(false)}
-              className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm"
+              className="fixed inset-0 z-40"
+              style={{ background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(4px)' }}
             />
+
+            {/* Drawer panel */}
             <motion.div
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 bottom-0 z-50 w-72 bg-dark-800 shadow-2xl p-8 flex flex-col"
+              transition={{ type: 'spring', damping: 28, stiffness: 220 }}
+              className="fixed top-0 right-0 bottom-0 z-50 w-72 flex flex-col p-7 shadow-2xl"
+              style={{
+                background: 'var(--bg-surface)',
+                borderLeft: '1px solid var(--border-default)',
+              }}
             >
-              <div className="flex items-center justify-between mb-10">
-                <span className="gradient-text font-bold text-xl">Menu</span>
-                <button onClick={() => setMobileOpen(false)} className="text-gray-400 hover:text-white">
-                  <RiCloseLine size={24} />
-                </button>
+              {/* Header */}
+              <div className="flex items-center justify-between mb-8">
+                <div className="flex items-center gap-2">
+                  <div
+                    className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-xs font-bold"
+                    style={{ background: 'linear-gradient(135deg, #6C63FF, #3EC6E0)' }}
+                  >
+                    HR
+                  </div>
+                  <span className="gradient-text font-bold">Menu</span>
+                </div>
+                <motion.button
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => setMobileOpen(false)}
+                  className="p-2 rounded-xl transition-colors"
+                  style={{ color: 'var(--text-muted)', background: 'var(--bg-elevated)' }}
+                >
+                  <RiCloseLine size={20} />
+                </motion.button>
               </div>
-              <nav className="flex flex-col gap-2 flex-1">
+
+              {/* Nav links */}
+              <nav className="flex flex-col gap-1.5 flex-1">
                 {navLinks.map((link, i) => (
                   <motion.button
                     key={link.href}
-                    initial={{ opacity: 0, x: 20 }}
+                    initial={{ opacity: 0, x: 24 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.07 }}
+                    transition={{ delay: i * 0.06 }}
                     onClick={() => handleNav(link.href)}
-                    className="text-left px-4 py-3 rounded-xl text-gray-300 hover:text-white hover:bg-white/10 font-medium transition-all"
+                    className="text-left px-4 py-3 rounded-xl font-medium text-sm transition-all duration-200"
+                    style={{
+                      color: activeSection === link.href ? '#6C63FF' : 'var(--text-secondary)',
+                      background: activeSection === link.href ? 'rgba(108,99,255,0.1)' : 'transparent',
+                    }}
                   >
                     {link.label}
                   </motion.button>
                 ))}
               </nav>
 
-              {/* ✅ FIXED: correct path and filename */}
-              <a
+              {/* Resume button */}
+              <motion.a
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35 }}
                 href="/resume.pdf"
                 download="Heman_Raj_Resume.pdf"
-                className="flex items-center justify-center gap-2 btn-primary mt-6"
                 onClick={() => setMobileOpen(false)}
+                className="flex items-center justify-center gap-2 btn-primary mt-4 text-sm"
               >
                 <RiDownloadLine size={16} />
                 Download Resume
-              </a>
-
+              </motion.a>
             </motion.div>
           </>
         )}

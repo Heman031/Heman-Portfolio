@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { RiBriefcaseLine, RiCalendarLine, RiMapPinLine, RiCheckLine } from 'react-icons/ri'
+import { RiBriefcaseLine, RiCalendarLine, RiMapPinLine, RiCheckboxCircleLine } from 'react-icons/ri'
 
 const experiences = [
   {
@@ -11,12 +11,13 @@ const experiences = [
     location: 'Chennai, Tamil Nadu',
     stack: ['Python', 'Pandas', 'Scikit-learn'],
     points: [
-      'Performed data preprocessing and feature engineering on large financial datasets to prepare them for ML models.',
+      'Performed data preprocessing and feature engineering on large financial datasets.',
       'Applied ML algorithms including Logistic Regression and Random Forest for fraud pattern identification.',
       'Achieved significant improvement in fraud detection accuracy through iterative model tuning.',
       'Created comprehensive data visualizations to present findings to the team.',
     ],
     color: '#6C63FF',
+    icon: '🔍',
   },
   {
     id: 2,
@@ -27,113 +28,144 @@ const experiences = [
     location: 'Chennai, Tamil Nadu',
     stack: ['PHP', 'MySQL', 'HTML', 'CSS', 'JavaScript'],
     points: [
-      'Built a complete full-stack admission portal for university distance education programs from scratch.',
-      'Implemented multi-role login system supporting Admin, Staff, and Student dashboards with role-based access.',
+      'Built a complete full-stack admission portal for university distance education programs.',
+      'Implemented multi-role login system supporting Admin, Staff, and Student dashboards.',
       'Automated application processing pipeline and real-time status tracking for applicants.',
       'Optimized database queries and ensured secure user authentication across all roles.',
     ],
     color: '#3EC6E0',
+    icon: '🎓',
   },
 ]
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-24 px-4">
-      <div className="max-w-5xl mx-auto">
+    <section
+      id="experience"
+      className="py-28 px-4"
+      style={{ background: 'var(--bg-elevated)' }}
+    >
+      <div className="max-w-4xl mx-auto">
+
+        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 36 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <p className="text-primary font-mono text-sm mb-3 tracking-widest uppercase">My journey</p>
+          <div className="section-badge justify-center">My journey</div>
           <h2 className="section-heading gradient-text">Experience</h2>
-          <div className="w-20 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #6C63FF, #3EC6E0)' }} />
+          <div className="w-16 h-1 mx-auto rounded-full" style={{ background: 'linear-gradient(90deg, #6C63FF, #3EC6E0)' }} />
         </motion.div>
 
         {/* Timeline */}
-        <div className="relative">
+        <div className="relative pl-10">
           {/* Vertical line */}
-          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 bg-gradient-to-b from-primary via-secondary to-primary opacity-30" />
+          <div className="timeline-line" />
 
-          <div className="flex flex-col gap-12">
+          <div className="flex flex-col gap-10">
             {experiences.map((exp, i) => (
               <motion.div
                 key={exp.id}
-                initial={{ opacity: 0, x: i % 2 === 0 ? -60 : 60 }}
+                initial={{ opacity: 0, x: -40 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.7, ease: 'easeOut' }}
-                className={`relative grid md:grid-cols-2 gap-4 md:gap-8 items-start ${
-                  i % 2 === 0 ? '' : 'md:[&>*:first-child]:order-2'
-                }`}
+                transition={{ duration: 0.65, delay: i * 0.1 }}
+                className="relative"
               >
-                {/* Card */}
-                <div className="md:col-span-1">
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    className="glass rounded-2xl p-6 relative overflow-hidden"
-                  >
-                    {/* Top gradient bar */}
-                    <div className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl"
-                      style={{ background: `linear-gradient(90deg, ${exp.color}, ${i % 2 === 0 ? '#3EC6E0' : '#6C63FF'})` }}
-                    />
+                {/* Timeline dot */}
+                <div
+                  className="timeline-dot"
+                  style={{ top: '1.75rem', boxShadow: `0 0 0 3px var(--bg-elevated), 0 0 14px ${exp.color}80` }}
+                />
 
-                    {/* Header */}
-                    <div className="flex items-start gap-3 mb-4">
-                      <div className="p-2.5 rounded-xl shrink-0"
-                        style={{ background: `${exp.color}22` }}>
-                        <RiBriefcaseLine size={20} style={{ color: exp.color }} />
+                {/* Card */}
+                <motion.div
+                  whileHover={{ x: 4 }}
+                  className="rounded-2xl overflow-hidden transition-all duration-300"
+                  style={{
+                    background: 'var(--bg-surface)',
+                    border: `1px solid var(--border-default)`,
+                    borderLeft: `4px solid ${exp.color}`,
+                    boxShadow: 'var(--shadow-card)',
+                  }}
+                >
+                  {/* Top accent bar */}
+                  <div
+                    className="h-1"
+                    style={{ background: `linear-gradient(90deg, ${exp.color}, ${i === 0 ? '#3EC6E0' : '#6C63FF'})` }}
+                  />
+
+                  <div className="p-6">
+                    {/* Header row */}
+                    <div className="flex items-start gap-3.5 mb-4">
+                      <div
+                        className="p-2.5 rounded-xl shrink-0 text-xl"
+                        style={{ background: `${exp.color}18` }}
+                      >
+                        {exp.icon}
                       </div>
-                      <div>
-                        <h3 className="font-bold text-base dark:text-white leading-tight">{exp.title}</h3>
-                        <p className="text-primary font-semibold text-sm mt-0.5">{exp.company}</p>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-bold text-base leading-snug mb-1" style={{ color: 'var(--text-primary)' }}>
+                          {exp.title}
+                        </h3>
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="font-semibold text-sm" style={{ color: exp.color }}>
+                            {exp.company}
+                          </span>
+                          <span
+                            className="px-2 py-0.5 rounded-full text-xs font-medium"
+                            style={{ background: `${exp.color}18`, color: exp.color }}
+                          >
+                            {exp.type}
+                          </span>
+                        </div>
                       </div>
                     </div>
 
                     {/* Meta */}
-                    <div className="flex flex-wrap gap-3 mb-4 text-xs text-gray-400">
-                      <span className="flex items-center gap-1">
+                    <div className="flex flex-wrap gap-4 mb-4 text-xs" style={{ color: 'var(--text-muted)' }}>
+                      <span className="flex items-center gap-1.5">
                         <RiCalendarLine size={13} />
                         {exp.duration}
                       </span>
-                      <span className="flex items-center gap-1">
+                      <span className="flex items-center gap-1.5">
                         <RiMapPinLine size={13} />
                         {exp.location}
                       </span>
-                      <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary">
-                        {exp.type}
-                      </span>
                     </div>
 
-                    {/* Stack */}
+                    {/* Tech stack */}
                     <div className="flex flex-wrap gap-2 mb-4">
                       {exp.stack.map(tech => (
-                        <span key={tech} className="px-2 py-0.5 rounded-lg text-xs font-mono bg-white/5 text-gray-300 border border-white/10">
-                          {tech}
-                        </span>
+                        <span key={tech} className="tech-badge">{tech}</span>
                       ))}
                     </div>
 
-                    {/* Points */}
+                    {/* Bullet points */}
                     <ul className="space-y-2">
                       {exp.points.map((point, j) => (
-                        <li key={j} className="flex gap-2 text-sm text-gray-400 leading-relaxed">
-                          <RiCheckLine size={16} className="text-primary shrink-0 mt-0.5" />
+                        <motion.li
+                          key={j}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: j * 0.07 }}
+                          className="flex gap-2.5 text-sm leading-relaxed"
+                          style={{ color: 'var(--text-secondary)' }}
+                        >
+                          <RiCheckboxCircleLine
+                            size={16}
+                            className="shrink-0 mt-0.5"
+                            style={{ color: exp.color }}
+                          />
                           {point}
-                        </li>
+                        </motion.li>
                       ))}
                     </ul>
-                  </motion.div>
-                </div>
-
-                {/* Timeline dot (center) */}
-                <div className="hidden md:flex items-start justify-center pt-6 absolute left-1/2 -translate-x-1/2">
-                  <div className="w-4 h-4 rounded-full border-2 border-primary bg-dark-900 z-10 shadow-lg shadow-primary/50" />
-                </div>
-
-                {/* Spacer for alternating layout */}
-                <div className="hidden md:block" />
+                  </div>
+                </motion.div>
               </motion.div>
             ))}
           </div>
