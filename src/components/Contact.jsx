@@ -206,7 +206,7 @@ export default function Contact() {
                   />
                 </div>
 
-                {/* Message */}
+                {/* Messag */}
                 <div>
                   <label className="block text-xs font-semibold mb-2" style={{ color: 'var(--text-muted)' }}>
                     Message *
