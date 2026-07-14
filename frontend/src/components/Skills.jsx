@@ -1,25 +1,25 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
-  SiHtml5, SiCss3, SiJavascript, SiReact, SiPhp, SiMysql,
+  SiHtml5, SiCss, SiJavascript, SiReact, SiPhp, SiMysql,
   SiPython, SiBootstrap, SiJupyter
 } from 'react-icons/si'
 import { RiTerminalBoxLine, RiBarChartBoxLine, RiFileTextLine } from 'react-icons/ri'
 
 const skills = [
-  { name: 'HTML5',      icon: SiHtml5,           color: '#E34F26', category: 'Web',         pct: 90 },
-  { name: 'CSS3',       icon: SiCss3,            color: '#1572B6', category: 'Web',         pct: 85 },
-  { name: 'JavaScript', icon: SiJavascript,      color: '#F7DF1E', category: 'Web',         pct: 80 },
-  { name: 'React',      icon: SiReact,           color: '#61DAFB', category: 'Web',         pct: 75 },
-  { name: 'Bootstrap',  icon: SiBootstrap,       color: '#7952B3', category: 'Web',         pct: 85 },
-  { name: 'PHP',        icon: SiPhp,             color: '#777BB4', category: 'Programming', pct: 80 },
-  { name: 'Python',     icon: SiPython,          color: '#3776AB', category: 'Programming', pct: 70 },
-  { name: 'SQL',        icon: SiMysql,           color: '#4479A1', category: 'Programming', pct: 80 },
-  { name: 'MySQL',      icon: SiMysql,           color: '#4479A1', category: 'Database',    pct: 80 },
-  { name: 'VS Code',    icon: RiTerminalBoxLine,  color: '#007ACC', category: 'Tools',       pct: 90 },
-  { name: 'Jupyter',    icon: SiJupyter,         color: '#F37626', category: 'Tools',       pct: 75 },
-  { name: 'Power BI',   icon: RiBarChartBoxLine,  color: '#F2C811', category: 'Tools',       pct: 65 },
-  { name: 'MS Office',  icon: RiFileTextLine,     color: '#D83B01', category: 'Tools',       pct: 80 },
+  { name: 'HTML5', icon: SiHtml5, color: '#E34F26', category: 'Web', pct: 90 },
+  { name: 'CSS3', icon: SiCss, color: '#1572B6', category: 'Web', pct: 85 },
+  { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E', category: 'Web', pct: 80 },
+  { name: 'React', icon: SiReact, color: '#61DAFB', category: 'Web', pct: 75 },
+  { name: 'Bootstrap', icon: SiBootstrap, color: '#7952B3', category: 'Web', pct: 85 },
+  { name: 'PHP', icon: SiPhp, color: '#777BB4', category: 'Programming', pct: 80 },
+  { name: 'Python', icon: SiPython, color: '#3776AB', category: 'Programming', pct: 70 },
+  { name: 'SQL', icon: SiMysql, color: '#4479A1', category: 'Programming', pct: 80 },
+  { name: 'MySQL', icon: SiMysql, color: '#4479A1', category: 'Database', pct: 80 },
+  { name: 'VS Code', icon: RiTerminalBoxLine, color: '#007ACC', category: 'Tools', pct: 90 },
+  { name: 'Jupyter', icon: SiJupyter, color: '#F37626', category: 'Tools', pct: 75 },
+  { name: 'Power BI', icon: RiBarChartBoxLine, color: '#F2C811', category: 'Tools', pct: 65 },
+  { name: 'MS Office', icon: RiFileTextLine, color: '#D83B01', category: 'Tools', pct: 80 },
 ]
 
 const tabs = ['All', 'Programming', 'Web', 'Tools', 'Database']

@@ -3,16 +3,16 @@ import { motion, useInView } from 'framer-motion'
 import { RiComputerLine, RiRocketLine, RiRulerLine, RiGraduationCapLine } from 'react-icons/ri'
 
 const highlights = [
-  { icon: RiComputerLine,       title: 'Core Technologies',     desc: 'Strong in HTML, CSS, JS, PHP, MySQL', color: '#6C63FF' },
-  { icon: RiRocketLine,         title: 'Real-World Experience',  desc: 'Internship experience with industry projects', color: '#3EC6E0' },
-  { icon: RiRulerLine,          title: 'Scalable Design',        desc: 'Passion for scalable application architecture', color: '#a855f7' },
-  { icon: RiGraduationCapLine,  title: 'Academic Excellence',    desc: 'MSc Computer Science, University of Madras', color: '#f59e0b' },
+  { icon: RiComputerLine, title: 'Core Technologies', desc: 'Strong in HTML, CSS, JS, PHP, MySQL', color: '#6C63FF' },
+  { icon: RiRocketLine, title: 'Real-World Experience', desc: 'Internship experience with industry projects', color: '#3EC6E0' },
+  { icon: RiRulerLine, title: 'Scalable Design', desc: 'Passion for scalable application architecture', color: '#a855f7' },
+  { icon: RiGraduationCapLine, title: 'Academic Excellence', desc: 'MSc Computer Science, University of Madras', color: '#f59e0b' },
 ]
 
 const stats = [
-  { value: '4+',  label: 'Projects'     },
-  { value: '2',   label: 'Internships'  },
-  { value: '1+',  label: 'Years Exp.'   },
+  { value: '4+', label: 'Projects' },
+  { value: '2', label: 'Internships' },
+  { value: '1+', label: 'Years Exp.' },
   { value: '10+', label: 'Technologies' },
 ]
 
@@ -83,14 +83,20 @@ export default function About() {
               />
 
               <div
-                className="w-52 h-52 rounded-3xl flex items-center justify-center text-6xl font-black text-white shadow-glow-lg relative overflow-hidden"
-                style={{ background: 'linear-gradient(135deg, #6C63FF 0%, #3EC6E0 100%)' }}
+                className="w-52 h-52 rounded-3xl shadow-glow-lg relative overflow-hidden"
               >
-                HR
-                {/* Shine */}
+                <img
+                  src="/public/profile.jpg"
+                  alt="Heman Raj"
+                  className="w-full h-full object-cover"
+                />
+
                 <div
                   className="absolute inset-0"
-                  style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 60%)' }}
+                  style={{
+                    background:
+                      'linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 60%)',
+                  }}
                 />
               </div>
 
