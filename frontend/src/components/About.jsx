@@ -86,10 +86,11 @@ export default function About() {
                 className="w-52 h-52 rounded-3xl shadow-glow-lg relative overflow-hidden"
               >
                 <img
-                  src="/public/profile.jpg"
+                  src="/profile.jpg"
                   alt="Heman Raj"
                   className="w-full h-full object-cover"
                 />
+
 
                 <div
                   className="absolute inset-0"
