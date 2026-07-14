@@ -4,19 +4,19 @@ import { RiMailLine, RiLinkedinLine, RiGithubLine, RiMapPinLine, RiSendPlaneLine
 import emailjs from '@emailjs/browser'
 import toast from 'react-hot-toast'
 
-const EMAILJS_SERVICE_ID  = 'service_n30a9n8'
+const EMAILJS_SERVICE_ID = 'service_n30a9n8'
 const EMAILJS_TEMPLATE_ID = 'template_hq2qqjd'
-const EMAILJS_PUBLIC_KEY  = 'LzCPwcurztAufl9Cq'
+const EMAILJS_PUBLIC_KEY = 'LzCPwcurztAufl9Cq'
 
 const info = [
-  { icon: RiMailLine,     label: 'Email',    value: 'hemanoffice31@gmail.com',    href: 'mailto:hemanoffice31@gmail.com',                    color: '#6C63FF' },
-  { icon: RiLinkedinLine, label: 'LinkedIn', value: 'linkedin.com/in/heman-raj',  href: 'https://www.linkedin.com/in/heman-raj',              color: '#0A66C2' },
-  { icon: RiGithubLine,   label: 'GitHub',   value: 'github.com/Heman031',        href: 'https://github.com/Heman031',                       color: '#6e5494' },
-  { icon: RiMapPinLine,   label: 'Location', value: 'Chennai, Tamil Nadu, India',  href: null,                                                color: '#3EC6E0' },
+  { icon: RiMailLine, label: 'Email', value: 'hemanoffice31@gmail.com', href: 'mailto:hemanoffice31@gmail.com', color: '#6C63FF' },
+  { icon: RiLinkedinLine, label: 'LinkedIn', value: 'linkedin.com/in/heman-raj', href: 'https://www.linkedin.com/in/heman-raj', color: '#0A66C2' },
+  { icon: RiGithubLine, label: 'GitHub', value: 'github.com/Heman031', href: 'https://github.com/Heman031', color: '#6e5494' },
+  { icon: RiMapPinLine, label: 'Location', value: 'Chennai, Tamil Nadu, India', href: null, color: '#3EC6E0' },
 ]
 
 export default function Contact() {
-  const [form,    setForm]    = useState({ name: '', email: '', subject: '', message: '' })
+  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
   const [loading, setLoading] = useState(false)
 
   const handleChange = e => setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
@@ -155,11 +155,12 @@ export default function Contact() {
           >
             <form onSubmit={handleSubmit} noValidate>
               <div
-                className="rounded-2xl p-8 space-y-5"
+                className="rounded-3xl p-8 space-y-5"
                 style={{
-                  background: 'var(--bg-surface)',
-                  border: '1px solid var(--border-default)',
-                  boxShadow: 'var(--shadow-card)',
+                  border: '1px solid rgba(108, 99, 255, 0.3)',
+                  background: 'rgba(255,255,255,0.03)',
+                  backdropFilter: 'blur(10px)',
+                  boxShadow: '0 0 20px rgba(108,99,255,0.15)',
                 }}
               >
                 {/* Name + Email row */}
@@ -173,7 +174,7 @@ export default function Contact() {
                       value={form.name}
                       onChange={handleChange}
                       placeholder="Heman Raj"
-                      className="input-field"
+                      className="input-spatial"
                     />
                   </div>
                   <div>
@@ -186,7 +187,7 @@ export default function Contact() {
                       value={form.email}
                       onChange={handleChange}
                       placeholder="you@example.com"
-                      className="input-field"
+                      className="input-spatial"
                     />
                   </div>
                 </div>
@@ -201,7 +202,7 @@ export default function Contact() {
                     value={form.subject}
                     onChange={handleChange}
                     placeholder="Job Opportunity / Collaboration"
-                    className="input-field"
+                    className="input-spatial"
                   />
                 </div>
 
@@ -216,7 +217,7 @@ export default function Contact() {
                     onChange={handleChange}
                     placeholder="Tell me about the opportunity..."
                     rows={6}
-                    className="input-field resize-none"
+                    className="input-spatial input-spatial-area resize-none"
                   />
                 </div>
 

@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { RiComputerLine, RiRocketLine, RiRulerLine, RiGraduationCapLine } from 'react-icons/ri'
+import profileImg from '../assets/profile.jpg'
 
 const highlights = [
   { icon: RiComputerLine, title: 'Core Technologies', desc: 'Strong in HTML, CSS, JS, PHP, MySQL', color: '#6C63FF' },
@@ -86,10 +87,11 @@ export default function About() {
                 className="w-52 h-52 rounded-3xl shadow-glow-lg relative overflow-hidden"
               >
                 <img
-                  src="/public/profile.jpg"
+                  src={profileImg}
                   alt="Heman Raj"
                   className="w-full h-full object-cover"
                 />
+
 
                 <div
                   className="absolute inset-0"
