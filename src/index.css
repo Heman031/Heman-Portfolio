@@ -1,0 +1,1591 @@
+/* ================================================================
+   GOOGLE FONTS — Must be first before @tailwind directives
+   Space Grotesk (Display) · Inter (Body) · JetBrains Mono (Code)
+   ================================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ================================================================
+   ████████╗ ██████╗ ██╗  ██╗███████╗███╗   ██╗███████╗
+      ██╔══╝██╔═══██╗██║ ██╔╝██╔════╝████╗  ██║██╔════╝
+      ██║   ██║   ██║█████╔╝ █████╗  ██╔██╗ ██║███████╗
+      ██║   ██║   ██║██╔═██╗ ██╔══╝  ██║╚██╗██║╚════██║
+      ██║   ╚██████╔╝██║  ██╗███████╗██║ ╚████║███████║
+      ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚══════╝
+
+   SPATIAL UI DESIGN SYSTEM — TOKEN ARCHITECTURE
+   Version  : 2.0
+   Theme    : Dark-first · Spatial · Glassmorphism
+   Fonts    : Space Grotesk / Inter / JetBrains Mono
+   ================================================================ */
+
+/* ================================================================
+   §1  DESIGN TOKENS  —  :root  (Dark Mode / Default)
+   ================================================================ */
+:root {
+
+  /* ── §1.1  COLOR — Raw Palette ──────────────────────────────── */
+  --palette-blue-50 : #EFF6FF;
+  --palette-blue-100: #DBEAFE;
+  --palette-blue-200: #BFDBFE;
+  --palette-blue-400: #60A5FA;
+  --palette-blue-500: #3B82F6;
+  --palette-blue-600: #2563EB;
+  --palette-blue-700: #1D4ED8;
+
+  --palette-cyan-300 : #67E8F9;
+  --palette-cyan-400 : #22D3EE;
+  --palette-cyan-500 : #06B6D4;
+  --palette-cyan-600 : #0891B2;
+
+  --palette-purple-300: #C4B5FD;
+  --palette-purple-400: #A78BFA;
+  --palette-purple-500: #8B5CF6;
+  --palette-purple-600: #7C3AED;
+  --palette-purple-700: #6D28D9;
+
+  --palette-pink-400: #F472B6;
+  --palette-pink-500: #EC4899;
+
+  --palette-amber-400: #FBBF24;
+  --palette-amber-500: #F59E0B;
+
+  --palette-rose-400: #FB7185;
+  --palette-rose-500: #F43F5E;
+
+  --palette-emerald-400: #34D399;
+  --palette-emerald-500: #10B981;
+
+  --palette-neon: #00D9FF;
+
+  /* ── §1.2  COLOR — Semantic Background Layers ───────────────── */
+  --color-space-void    : #020408;   /* deepest — page bg       */
+  --color-space-deep    : #050B17;   /* deep dark               */
+  --color-space-surface : #08112A;   /* card base               */
+  --color-space-elevated: #0D1A36;   /* raised card             */
+  --color-space-panel   : #122040;   /* highest surface         */
+  --color-space-overlay : #19294F;   /* pop-up / tooltip        */
+
+  /* ── §1.3  COLOR — Glass System ────────────────────────────── */
+  --color-glass-base  : rgba(8, 17, 42, 0.55);
+  --color-glass-hover : rgba(12, 24, 55, 0.72);
+  --color-glass-active: rgba(16, 30, 65, 0.85);
+  --color-glass-shine : rgba(255, 255, 255, 0.055);
+  --color-glass-sheen : rgba(255, 255, 255, 0.03);
+
+  /* ── §1.4  COLOR — Semantic Accent ──────────────────────────── */
+  --color-blue        : var(--palette-blue-500);
+  --color-blue-light  : var(--palette-blue-400);
+  --color-cyan        : var(--palette-cyan-500);
+  --color-cyan-light  : var(--palette-cyan-400);
+  --color-purple      : var(--palette-purple-500);
+  --color-purple-light: var(--palette-purple-400);
+  --color-neon        : var(--palette-neon);
+  --color-amber       : var(--palette-amber-500);
+  --color-rose        : var(--palette-rose-500);
+  --color-emerald     : var(--palette-emerald-500);
+
+  /* ── §1.5  COLOR — Text Hierarchy ───────────────────────────── */
+  --color-text-primary   : #ECF2FF;
+  --color-text-secondary : #8BA3C7;
+  --color-text-muted     : #455878;
+  --color-text-faint     : #263450;
+  --color-text-accent    : var(--palette-blue-400);
+  --color-text-code      : var(--palette-cyan-400);
+
+  /* ── §1.6  COLOR — Border System ────────────────────────────── */
+  --color-border-subtle  : rgba(59, 130, 246, 0.07);
+  --color-border-default : rgba(59, 130, 246, 0.13);
+  --color-border-mid     : rgba(59, 130, 246, 0.22);
+  --color-border-strong  : rgba(59, 130, 246, 0.40);
+  --color-border-glow    : rgba(59, 130, 246, 0.65);
+
+  /* ── §1.7  GRADIENTS ─────────────────────────────────────────── */
+  --grad-primary : linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
+  --grad-cyan    : linear-gradient(135deg, #06B6D4 0%, #3B82F6 100%);
+  --grad-purple  : linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+  --grad-neon    : linear-gradient(135deg, #00D9FF 0%, #3B82F6 60%, #8B5CF6 100%);
+  --grad-warm    : linear-gradient(135deg, #F59E0B 0%, #EF4444 100%);
+  --grad-emerald : linear-gradient(135deg, #10B981 0%, #06B6D4 100%);
+  --grad-surface : linear-gradient(160deg, #0D1A36 0%, #08112A 100%);
+  --grad-shine   : linear-gradient(135deg, rgba(255,255,255,0.10) 0%, transparent 55%);
+
+  /* Hero mesh gradient */
+  --mesh-hero:
+    radial-gradient(ellipse 75% 55% at 15% 15%, rgba(59,130,246,0.14) 0%, transparent 65%),
+    radial-gradient(ellipse 55% 75% at 85% 85%, rgba(139,92,246,0.11) 0%, transparent 65%),
+    radial-gradient(ellipse 45% 45% at 50% 100%, rgba(6,182,212,0.07) 0%, transparent 70%),
+    var(--color-space-void);
+
+  --mesh-alt:
+    radial-gradient(ellipse 65% 50% at 85% 15%, rgba(139,92,246,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 65% at 15% 85%, rgba(59,130,246,0.10) 0%, transparent 60%),
+    var(--color-space-deep);
+
+  /* ── §1.8  SPACING SCALE ─────────────────────────────────────── */
+  --space-xs  : 0.25rem;   /*  4px */
+  --space-sm  : 0.5rem;    /*  8px */
+  --space-md  : 1rem;      /* 16px */
+  --space-lg  : 1.5rem;    /* 24px */
+  --space-xl  : 2rem;      /* 32px */
+  --space-2xl : 3rem;      /* 48px */
+  --space-3xl : 4.5rem;    /* 72px */
+  --space-4xl : 7rem;      /* 112px*/
+
+  /* Section vertical rhythm */
+  --section-py    : clamp(4rem, 8vw, 7rem);
+  --section-px    : clamp(1rem, 5vw, 2rem);
+  --container-max : 1280px;
+  --container-pad : clamp(1rem, 4vw, 2.5rem);
+
+  /* ── §1.9  BORDER RADIUS SCALE ───────────────────────────────── */
+  --radius-xs  : 0.25rem;   /*  4px */
+  --radius-sm  : 0.5rem;    /*  8px */
+  --radius-md  : 0.75rem;   /* 12px */
+  --radius-lg  : 1rem;      /* 16px */
+  --radius-xl  : 1.25rem;   /* 20px */
+  --radius-2xl : 1.5rem;    /* 24px */
+  --radius-3xl : 2rem;      /* 32px */
+  --radius-4xl : 2.5rem;    /* 40px */
+  --radius-full: 9999px;
+
+  /* ── §1.10  SHADOW / DEPTH SYSTEM ───────────────────────────── */
+  /* Surface Depth Layers */
+  --shadow-depth-1 :
+    0 1px 3px  rgba(0, 0, 0, 0.35),
+    0 4px 8px  rgba(0, 0, 0, 0.25);
+
+  --shadow-depth-2 :
+    0 4px 12px rgba(0, 0, 0, 0.45),
+    0 8px 24px rgba(0, 0, 0, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.055);
+
+  --shadow-depth-3 :
+    0 8px 24px  rgba(0, 0, 0, 0.50),
+    0 20px 48px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+
+  --shadow-float :
+    0 16px 48px rgba(0, 0, 0, 0.55),
+    0 32px 80px rgba(0, 0, 0, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+  --shadow-modal :
+    0 24px 64px rgba(0, 0, 0, 0.65),
+    0 48px 100px rgba(0, 0, 0, 0.40);
+
+  /* Accent Glows */
+  --glow-blue   :
+    0 0 20px  rgba(59, 130, 246, 0.25),
+    0 0 60px  rgba(59, 130, 246, 0.10);
+
+  --glow-blue-strong:
+    0 0 30px  rgba(59, 130, 246, 0.45),
+    0 0 80px  rgba(59, 130, 246, 0.20);
+
+  --glow-cyan   :
+    0 0 20px  rgba(6, 182, 212, 0.30),
+    0 0 60px  rgba(6, 182, 212, 0.12);
+
+  --glow-purple :
+    0 0 20px  rgba(139, 92, 246, 0.30),
+    0 0 60px  rgba(139, 92, 246, 0.12);
+
+  --glow-neon   :
+    0 0 16px  rgba(0, 217, 255, 0.55),
+    0 0 40px  rgba(0, 217, 255, 0.22),
+    0 0 80px  rgba(0, 217, 255, 0.08);
+
+  --glow-amber  :
+    0 0 20px  rgba(245, 158, 11, 0.35),
+    0 0 50px  rgba(245, 158, 11, 0.15);
+
+  /* ── §1.11  Z-INDEX LAYERS ───────────────────────────────────── */
+  --z-below    : -1;
+  --z-base     :  0;
+  --z-raised   : 10;
+  --z-dropdown : 20;
+  --z-sticky   : 30;
+  --z-overlay  : 40;
+  --z-modal    : 50;
+  --z-navbar   : 60;
+  --z-toast    : 70;
+  --z-top      : 9999;
+
+  /* ── §1.12  TYPOGRAPHY SCALE ────────────────────────────────── */
+  /* Display */
+  --type-display-size  : clamp(3rem,   8vw, 5.5rem);
+  --type-display-line  : 1.05;
+  --type-display-track : -0.04em;
+  --type-display-weight: 700;
+
+  /* Headings */
+  --type-h1-size   : clamp(2.25rem, 6vw,  4rem);
+  --type-h1-line   : 1.08;
+  --type-h1-track  : -0.035em;
+
+  --type-h2-size   : clamp(1.75rem, 4vw,  2.75rem);
+  --type-h2-line   : 1.12;
+  --type-h2-track  : -0.025em;
+
+  --type-h3-size   : clamp(1.25rem, 3vw,  1.75rem);
+  --type-h3-line   : 1.2;
+  --type-h3-track  : -0.018em;
+
+  --type-h4-size   : clamp(1.05rem, 2vw,  1.25rem);
+  --type-h4-line   : 1.3;
+  --type-h4-track  : -0.01em;
+
+  /* Body */
+  --type-body-lg-size  : clamp(1rem,   1.5vw, 1.125rem);
+  --type-body-lg-line  : 1.75;
+
+  --type-body-md-size  : clamp(0.875rem, 1.2vw, 1rem);
+  --type-body-md-line  : 1.7;
+
+  --type-body-sm-size  : 0.875rem;
+  --type-body-sm-line  : 1.65;
+
+  /* Caption / Label */
+  --type-caption-size  : 0.75rem;
+  --type-caption-line  : 1.5;
+  --type-caption-track : 0.04em;
+
+  --type-label-size    : 0.7rem;
+  --type-label-line    : 1.4;
+  --type-label-track   : 0.14em;
+
+  /* Font Weights */
+  --fw-light  : 300;
+  --fw-regular: 400;
+  --fw-medium : 500;
+  --fw-semi   : 600;
+  --fw-bold   : 700;
+
+  /* ── §1.13  ANIMATION SYSTEM ─────────────────────────────────── */
+  /* Durations */
+  --dur-instant  : 75ms;
+  --dur-fast     : 150ms;
+  --dur-normal   : 250ms;
+  --dur-medium   : 350ms;
+  --dur-slow     : 500ms;
+  --dur-xslow    : 700ms;
+  --dur-entrance : 800ms;
+
+  /* Easing Curves */
+  --ease-linear    : linear;
+  --ease-in        : cubic-bezier(0.4, 0, 1, 1);
+  --ease-out       : cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out    : cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out-expo  : cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring    : cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-snap      : cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-bounce    : cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Hover Lift Values */
+  --hover-lift-sm  : translateY(-2px);
+  --hover-lift-md  : translateY(-4px);
+  --hover-lift-lg  : translateY(-8px);
+  --hover-scale-sm : scale(1.02);
+  --hover-scale-md : scale(1.04);
+
+  /* ── §1.14  SCROLLBAR ──────────────────────────────────────── */
+  --scrollbar-width : 4px;
+  --scrollbar-track : #050B17;
+  --scrollbar-thumb : linear-gradient(180deg, #3B82F6, #8B5CF6);
+}
+
+
+/* ================================================================
+   §2  LIGHT MODE OVERRIDES  — .light class (theme toggle)
+   ================================================================ */
+.light {
+  --color-space-void    : #F4F7FF;
+  --color-space-deep    : #EBF0FF;
+  --color-space-surface : #FFFFFF;
+  --color-space-elevated: #F0F4FF;
+  --color-space-panel   : #E8EEFF;
+  --color-space-overlay : #DDE6FF;
+
+  --color-glass-base    : rgba(255, 255, 255, 0.68);
+  --color-glass-hover   : rgba(255, 255, 255, 0.85);
+  --color-glass-active  : rgba(255, 255, 255, 0.95);
+  --color-glass-shine   : rgba(255, 255, 255, 0.80);
+  --color-glass-sheen   : rgba(59, 130, 246, 0.04);
+
+  --color-text-primary   : #071228;
+  --color-text-secondary : #2A4070;
+  --color-text-muted     : #637899;
+  --color-text-faint     : #A8BDD8;
+
+  --color-border-subtle  : rgba(59, 130, 246, 0.09);
+  --color-border-default : rgba(59, 130, 246, 0.16);
+  --color-border-mid     : rgba(59, 130, 246, 0.26);
+  --color-border-strong  : rgba(59, 130, 246, 0.45);
+  --color-border-glow    : rgba(59, 130, 246, 0.70);
+
+  --shadow-depth-1 :
+    0 1px 3px  rgba(10, 30, 80, 0.07),
+    0 4px 8px  rgba(10, 30, 80, 0.05);
+
+  --shadow-depth-2 :
+    0 4px 12px rgba(10, 30, 80, 0.10),
+    0 8px 24px rgba(10, 30, 80, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.80);
+
+  --shadow-depth-3 :
+    0 8px 24px  rgba(10, 30, 80, 0.12),
+    0 20px 48px rgba(10, 30, 80, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.90);
+
+  --shadow-float :
+    0 16px 48px rgba(10, 30, 80, 0.14),
+    0 32px 80px rgba(10, 30, 80, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+
+  --shadow-modal :
+    0 24px 64px rgba(10, 30, 80, 0.18),
+    0 48px 100px rgba(10, 30, 80, 0.10);
+
+  --mesh-hero:
+    radial-gradient(ellipse 75% 55% at 15% 15%, rgba(59,130,246,0.08) 0%, transparent 65%),
+    radial-gradient(ellipse 55% 75% at 85% 85%, rgba(139,92,246,0.06) 0%, transparent 65%),
+    radial-gradient(ellipse 45% 45% at 50% 100%, rgba(6,182,212,0.04) 0%, transparent 70%),
+    var(--color-space-void);
+
+  --mesh-alt:
+    radial-gradient(ellipse 65% 50% at 85% 15%, rgba(139,92,246,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 65% at 15% 85%, rgba(59,130,246,0.05) 0%, transparent 60%),
+    var(--color-space-deep);
+
+  --scrollbar-track: #EBF0FF;
+}
+
+
+/* ================================================================
+   §3  BASE LAYER  —  Resets · Root Styles · Element Defaults
+   ================================================================ */
+@layer base {
+
+  /* ── 3.1  Box-model reset ────────────────────────────────────── */
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* ── 3.2  HTML root ──────────────────────────────────────────── */
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;      /* offset for fixed navbar      */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
+  }
+
+  /* ── 3.3  Body ───────────────────────────────────────────────── */
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-size:   var(--type-body-md-size);
+    line-height: var(--type-body-md-line);
+    font-weight: var(--fw-regular);
+    color:            var(--color-text-primary);
+    background-color: var(--color-space-void);
+    overflow-x: hidden;
+    min-height: 100dvh;
+    transition:
+      background-color var(--dur-slow) var(--ease-in-out),
+      color            var(--dur-slow) var(--ease-in-out);
+  }
+
+  /* ── 3.4  Typography — Heading Defaults ──────────────────────── */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-weight: var(--fw-bold);
+    color: var(--color-text-primary);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+  }
+
+  h1 {
+    font-size:      var(--type-h1-size);
+    line-height:    var(--type-h1-line);
+    letter-spacing: var(--type-h1-track);
+  }
+  h2 {
+    font-size:      var(--type-h2-size);
+    line-height:    var(--type-h2-line);
+    letter-spacing: var(--type-h2-track);
+  }
+  h3 {
+    font-size:      var(--type-h3-size);
+    line-height:    var(--type-h3-line);
+    letter-spacing: var(--type-h3-track);
+  }
+  h4 {
+    font-size:      var(--type-h4-size);
+    line-height:    var(--type-h4-line);
+    letter-spacing: var(--type-h4-track);
+  }
+
+  /* ── 3.5  Prose Defaults ─────────────────────────────────────── */
+  p {
+    font-size:   var(--type-body-md-size);
+    line-height: var(--type-body-md-line);
+    color: var(--color-text-secondary);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  img, svg, video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  button, input, textarea, select {
+    font-family: inherit;
+    font-size: inherit;
+  }
+
+  button {
+    cursor: pointer;
+    border: none;
+    background: transparent;
+  }
+
+  ul, ol { list-style: none; }
+
+  /* ── 3.6  Selection ──────────────────────────────────────────── */
+  ::selection {
+    background: rgba(59, 130, 246, 0.32);
+    color: #fff;
+  }
+
+  /* ── 3.7  Focus Ring (Accessibility) ─────────────────────────── */
+  :focus-visible {
+    outline: 2px solid var(--color-blue);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+  }
+
+  /* ── 3.8  Custom Scrollbar ───────────────────────────────────── */
+  ::-webkit-scrollbar        { width: var(--scrollbar-width); height: var(--scrollbar-width); }
+  ::-webkit-scrollbar-track  { background: var(--scrollbar-track); }
+  ::-webkit-scrollbar-thumb  {
+    background: linear-gradient(180deg, #3B82F6, #8B5CF6);
+    border-radius: var(--radius-full);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #60A5FA, #A78BFA);
+  }
+  ::-webkit-scrollbar-corner { background: transparent; }
+}
+
+
+/* ================================================================
+   §4  COMPONENT LAYER  —  Reusable Design System Classes
+   ================================================================ */
+@layer components {
+
+  /* ============================================================
+     §4.1  CONTAINERS & WRAPPERS
+     ============================================================ */
+
+  /* Max-width container with responsive horizontal padding */
+  .container-spatial {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left:  var(--container-pad);
+    padding-right: var(--container-pad);
+  }
+
+  /* Section wrapper — responsive vertical spacing */
+  .section-wrapper {
+    padding-top:    var(--section-py);
+    padding-bottom: var(--section-py);
+    padding-left:   var(--section-px);
+    padding-right:  var(--section-px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Full-viewport hero wrapper */
+  .section-hero {
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: var(--space-3xl) var(--section-px) var(--space-2xl);
+  }
+
+  /* ============================================================
+     §4.2  TYPOGRAPHY CLASSES
+     ============================================================ */
+
+  /* Display — largest possible text, hero headlines */
+  .type-display {
+    font-family:    'Space Grotesk', system-ui, sans-serif;
+    font-size:      var(--type-display-size);
+    font-weight:    var(--type-display-weight);
+    line-height:    var(--type-display-line);
+    letter-spacing: var(--type-display-track);
+    color:          var(--color-text-primary);
+  }
+
+  /* H1 – H4 typed classes (use alongside elements) */
+  .type-h1 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size:      var(--type-h1-size);
+    font-weight:    var(--fw-bold);
+    line-height:    var(--type-h1-line);
+    letter-spacing: var(--type-h1-track);
+  }
+  .type-h2 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size:      var(--type-h2-size);
+    font-weight:    var(--fw-bold);
+    line-height:    var(--type-h2-line);
+    letter-spacing: var(--type-h2-track);
+  }
+  .type-h3 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size:      var(--type-h3-size);
+    font-weight:    var(--fw-semi);
+    line-height:    var(--type-h3-line);
+    letter-spacing: var(--type-h3-track);
+  }
+  .type-h4 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size:      var(--type-h4-size);
+    font-weight:    var(--fw-semi);
+    line-height:    var(--type-h4-line);
+    letter-spacing: var(--type-h4-track);
+  }
+
+  /* Body text */
+  .type-body-lg { font-size: var(--type-body-lg-size); line-height: var(--type-body-lg-line); }
+  .type-body-md { font-size: var(--type-body-md-size); line-height: var(--type-body-md-line); }
+  .type-body-sm { font-size: var(--type-body-sm-size); line-height: var(--type-body-sm-line); }
+
+  /* Caption & Label */
+  .type-caption {
+    font-size:      var(--type-caption-size);
+    line-height:    var(--type-caption-line);
+    letter-spacing: var(--type-caption-track);
+    color:          var(--color-text-muted);
+  }
+  .type-label {
+    font-family:    'JetBrains Mono', monospace;
+    font-size:      var(--type-label-size);
+    font-weight:    var(--fw-medium);
+    line-height:    var(--type-label-line);
+    letter-spacing: var(--type-label-track);
+    text-transform: uppercase;
+  }
+
+  /* Section badge — monospace label pill above heading */
+  .section-label {
+    display:     inline-flex;
+    align-items: center;
+    gap:         var(--space-sm);
+    font-family: 'JetBrains Mono', monospace;
+    font-size:   var(--type-label-size);
+    font-weight: var(--fw-semi);
+    text-transform: uppercase;
+    letter-spacing: var(--type-label-track);
+    color:          var(--color-cyan);
+    padding:        0.35rem 0.875rem;
+    border-radius:  var(--radius-full);
+    border:         1px solid rgba(6, 182, 212, 0.28);
+    background:     rgba(6, 182, 212, 0.08);
+    backdrop-filter: blur(8px);
+    margin-bottom:  var(--space-md);
+    width:          fit-content;
+  }
+
+  /* Gradient text utilities */
+  .text-gradient {
+    background: var(--grad-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .text-gradient-cyan {
+    background: var(--grad-cyan);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .text-gradient-purple {
+    background: var(--grad-purple);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .text-gradient-neon {
+    background: var(--grad-neon);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Animated shimmer text */
+  .shimmer-text {
+    background: linear-gradient(
+      90deg,
+      #3B82F6 0%, #06B6D4 25%, #8B5CF6 55%, #3B82F6 80%
+    );
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: kf-shimmer var(--dur-xslow) linear infinite;
+    animation-duration: 4s;
+  }
+
+  /* ============================================================
+     §4.3  CARD SYSTEM  —  Depth Layers
+     ============================================================ */
+
+  /* Base glass card — Surface Level 1 */
+  .card-l1 {
+    background:       var(--color-glass-base);
+    backdrop-filter:  blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border:           1px solid var(--color-border-default);
+    border-radius:    var(--radius-xl);
+    box-shadow:       var(--shadow-depth-1);
+    position:         relative;
+    overflow:         hidden;
+    transition:
+      background      var(--dur-medium) var(--ease-out-expo),
+      border-color    var(--dur-medium) var(--ease-out-expo),
+      box-shadow      var(--dur-medium) var(--ease-out-expo),
+      transform       var(--dur-medium) var(--ease-out-expo);
+  }
+  /* Top-edge specular highlight */
+  .card-l1::before {
+    content: '';
+    position: absolute;
+    inset: 0; bottom: auto;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 10%, var(--color-glass-shine) 50%, transparent 90%);
+    pointer-events: none;
+  }
+  .card-l1:hover {
+    background:    var(--color-glass-hover);
+    border-color:  var(--color-border-mid);
+    box-shadow:    var(--shadow-depth-2), var(--glow-blue);
+    transform:     var(--hover-lift-sm);
+  }
+
+  /* Raised card — Surface Level 2 */
+  .card-l2 {
+    background:      var(--color-glass-base);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border:          1px solid var(--color-border-default);
+    border-radius:   var(--radius-2xl);
+    box-shadow:      var(--shadow-depth-2);
+    position:        relative;
+    overflow:        hidden;
+    transition:
+      background   var(--dur-medium) var(--ease-out-expo),
+      border-color var(--dur-medium) var(--ease-out-expo),
+      box-shadow   var(--dur-medium) var(--ease-out-expo),
+      transform    var(--dur-medium) var(--ease-out-expo);
+  }
+  .card-l2::before {
+    content: '';
+    position: absolute;
+    inset: 0; bottom: auto;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 5%, rgba(255,255,255,0.07) 50%, transparent 95%);
+    pointer-events: none;
+  }
+  .card-l2:hover {
+    background:   var(--color-glass-hover);
+    border-color: var(--color-border-mid);
+    box-shadow:   var(--shadow-depth-3), var(--glow-blue);
+    transform:    var(--hover-lift-md);
+  }
+
+  /* Floating card — Surface Level 3 */
+  .card-l3 {
+    background:      var(--color-glass-hover);
+    backdrop-filter: blur(28px) saturate(200%);
+    -webkit-backdrop-filter: blur(28px) saturate(200%);
+    border:          1px solid var(--color-border-mid);
+    border-radius:   var(--radius-3xl);
+    box-shadow:      var(--shadow-float);
+    position:        relative;
+    overflow:        hidden;
+    transition:
+      background   var(--dur-medium) var(--ease-out-expo),
+      border-color var(--dur-medium) var(--ease-out-expo),
+      box-shadow   var(--dur-medium) var(--ease-out-expo),
+      transform    var(--dur-medium) var(--ease-out-expo);
+  }
+  .card-l3::before {
+    content: '';
+    position: absolute;
+    inset: 0; bottom: auto;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.09) 40%, rgba(255,255,255,0.04) 100%);
+    pointer-events: none;
+  }
+  .card-l3:hover {
+    border-color: var(--color-border-strong);
+    box-shadow:   var(--shadow-modal), var(--glow-blue-strong);
+    transform:    var(--hover-lift-lg);
+  }
+
+  /* Project / feature card — premium variant */
+  .card-feature {
+    background:      var(--color-glass-base);
+    backdrop-filter: blur(24px) saturate(190%);
+    -webkit-backdrop-filter: blur(24px) saturate(190%);
+    border:          1px solid var(--color-border-default);
+    border-radius:   var(--radius-2xl);
+    box-shadow:      var(--shadow-depth-2);
+    position:        relative;
+    overflow:        hidden;
+    transition:
+      all var(--dur-medium) var(--ease-out-expo);
+  }
+  .card-feature::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--grad-shine);
+    opacity: 0;
+    transition: opacity var(--dur-medium) var(--ease-out);
+    pointer-events: none;
+    border-radius: inherit;
+  }
+  .card-feature:hover {
+    border-color: var(--color-border-mid);
+    box-shadow:   var(--shadow-depth-3), var(--glow-blue);
+    transform:    var(--hover-lift-md) scale(1.005);
+  }
+  .card-feature:hover::after { opacity: 1; }
+
+  /* Stat chip — small data display card */
+  .card-stat {
+    display:         flex;
+    flex-direction:  column;
+    align-items:     center;
+    justify-content: center;
+    text-align:      center;
+    padding:         var(--space-lg) var(--space-md);
+    background:      var(--color-glass-base);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border:          1px solid var(--color-border-default);
+    border-radius:   var(--radius-xl);
+    box-shadow:      var(--shadow-depth-1);
+    transition:      all var(--dur-medium) var(--ease-out-expo);
+  }
+  .card-stat:hover {
+    border-color: var(--color-border-mid);
+    box-shadow:   var(--shadow-depth-2), var(--glow-blue);
+    transform:    var(--hover-lift-sm);
+  }
+
+  /* ============================================================
+     §4.4  BUTTON SYSTEM
+     ============================================================ */
+
+  /* Primary — gradient filled, glowing */
+  .btn-primary {
+    position:        relative;
+    display:         inline-flex;
+    align-items:     center;
+    justify-content: center;
+    gap:             var(--space-sm);
+    padding:         0.8125rem 1.75rem;   /* 13px 28px — touch-friendly */
+    min-height:      2.75rem;             /* 44px — touch min target     */
+    border-radius:   var(--radius-lg);
+    font-family:     'Space Grotesk', sans-serif;
+    font-size:       var(--type-body-md-size);
+    font-weight:     var(--fw-semi);
+    letter-spacing:  0.01em;
+    color:           #fff;
+    background:      var(--grad-primary);
+    border:          1px solid rgba(59, 130, 246, 0.45);
+    box-shadow:      0 0 20px rgba(59,130,246,0.22), inset 0 1px 0 rgba(255,255,255,0.18);
+    overflow:        hidden;
+    cursor:          pointer;
+    text-decoration: none;
+    white-space:     nowrap;
+    user-select:     none;
+    transition:
+      transform    var(--dur-medium) var(--ease-out-expo),
+      box-shadow   var(--dur-medium) var(--ease-out-expo),
+      filter       var(--dur-medium) var(--ease-out-expo);
+  }
+  /* Specular shine overlay */
+  .btn-primary::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.14) 0%, transparent 55%);
+    opacity: 0;
+    transition: opacity var(--dur-medium) var(--ease-out);
+    pointer-events: none;
+  }
+  .btn-primary:hover {
+    transform:  translateY(-2px) scale(1.025);
+    box-shadow: 0 0 36px rgba(59,130,246,0.45), 0 8px 28px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.22);
+  }
+  .btn-primary:hover::before { opacity: 1; }
+  .btn-primary:active { transform: translateY(0) scale(0.97); }
+  .btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* Ghost / outline button */
+  .btn-ghost {
+    position:        relative;
+    display:         inline-flex;
+    align-items:     center;
+    justify-content: center;
+    gap:             var(--space-sm);
+    padding:         0.8125rem 1.75rem;
+    min-height:      2.75rem;             /* 44px touch target */
+    border-radius:   var(--radius-lg);
+    font-family:     'Space Grotesk', sans-serif;
+    font-size:       var(--type-body-md-size);
+    font-weight:     var(--fw-semi);
+    letter-spacing:  0.01em;
+    color:           var(--color-text-primary);
+    background:      transparent;
+    border:          1px solid var(--color-border-mid);
+    backdrop-filter: blur(10px);
+    cursor:          pointer;
+    text-decoration: none;
+    white-space:     nowrap;
+    user-select:     none;
+    transition:
+      all var(--dur-medium) var(--ease-out-expo);
+  }
+  .btn-ghost:hover {
+    background:   var(--color-glass-base);
+    border-color: var(--color-border-strong);
+    box-shadow:   0 8px 28px rgba(59,130,246,0.16), inset 0 1px 0 var(--color-glass-shine);
+    transform:    translateY(-2px);
+  }
+  .btn-ghost:active { transform: translateY(0) scale(0.97); }
+  .btn-ghost:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* Icon-only button */
+  .btn-icon {
+    display:         inline-flex;
+    align-items:     center;
+    justify-content: center;
+    width:           2.75rem;             /* 44px touch target */
+    height:          2.75rem;
+    border-radius:   var(--radius-md);
+    background:      var(--color-glass-base);
+    border:          1px solid var(--color-border-default);
+    color:           var(--color-text-secondary);
+    cursor:          pointer;
+    text-decoration: none;
+    transition:      all var(--dur-normal) var(--ease-out-expo);
+  }
+  .btn-icon:hover {
+    background:   var(--color-glass-hover);
+    border-color: var(--color-border-mid);
+    color:        var(--color-text-primary);
+    transform:    var(--hover-lift-sm) scale(1.05);
+    box-shadow:   var(--shadow-depth-1), var(--glow-blue);
+  }
+  .btn-icon:active { transform: scale(0.94); }
+
+  /* Small button variant */
+  .btn-sm {
+    padding:   0.5rem 1.125rem;
+    min-height: 2.25rem;
+    font-size:  0.825rem;
+    border-radius: var(--radius-md);
+  }
+
+  /* ============================================================
+     §4.5  INPUT SYSTEM
+     ============================================================ */
+
+  .input-spatial {
+    width:           100%;
+    min-height:      2.875rem;            /* touch friendly */
+    background:      rgba(8, 17, 42, 0.65);
+    border:          1px solid var(--color-border-default);
+    border-radius:   var(--radius-lg);
+    padding:         0.875rem 1.125rem;
+    font-family:     'Inter', sans-serif;
+    font-size:       var(--type-body-md-size);
+    font-weight:     var(--fw-regular);
+    color:           var(--color-text-primary);
+    outline:         none;
+    backdrop-filter: blur(12px);
+    transition:
+      border-color var(--dur-normal) var(--ease-out),
+      box-shadow   var(--dur-normal) var(--ease-out),
+      background   var(--dur-normal) var(--ease-out);
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .input-spatial::placeholder { color: var(--color-text-muted); }
+  .input-spatial:hover        { border-color: var(--color-border-mid); }
+  .input-spatial:focus {
+    border-color: var(--color-blue);
+    background:   rgba(8, 17, 50, 0.82);
+    box-shadow:
+      0 0 0 3px rgba(59, 130, 246, 0.16),
+      var(--glow-blue);
+  }
+  .input-spatial:focus::placeholder { color: var(--color-text-faint); }
+
+  /* Textarea */
+  .input-spatial-area {
+    resize:     vertical;
+    min-height: 8rem;
+  }
+
+  /* Light mode */
+  .light .input-spatial {
+    background: rgba(255, 255, 255, 0.72);
+  }
+  .light .input-spatial:focus {
+    background: rgba(255, 255, 255, 0.96);
+  }
+
+  /* ============================================================
+     §4.6  NAVIGATION ELEMENTS
+     ============================================================ */
+
+  /* Floating glassmorphism navbar container */
+  .navbar-spatial {
+    position:        fixed;
+    top:             0; left: 0; right: 0;
+    z-index:         var(--z-navbar);
+    transition:
+      background   var(--dur-medium) var(--ease-out),
+      box-shadow   var(--dur-medium) var(--ease-out),
+      border-color var(--dur-medium) var(--ease-out);
+  }
+
+  /* Scrolled state — glass fills in */
+  .navbar-spatial.scrolled {
+    background:     var(--color-glass-active);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border-bottom:  1px solid var(--color-border-default);
+    box-shadow:     var(--shadow-depth-2);
+  }
+
+  /* Nav link */
+  .nav-link {
+    position:    relative;
+    display:     inline-flex;
+    align-items: center;
+    padding:     0.5rem 0.875rem;
+    min-height:  2.75rem;               /* 44px tap target */
+    border-radius: var(--radius-md);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size:   var(--type-body-sm-size);
+    font-weight: var(--fw-medium);
+    color:       var(--color-text-secondary);
+    cursor:      pointer;
+    white-space: nowrap;
+    transition:  color var(--dur-normal) var(--ease-out);
+    background: transparent;
+    border: none;
+  }
+  .nav-link:hover    { color: var(--color-text-primary); }
+  .nav-link.active   { color: var(--color-blue-light); }
+
+  /* Active nav underline indicator */
+  .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 4px; left: 50%;
+    transform: translateX(-50%);
+    width: 4px; height: 4px;
+    border-radius: var(--radius-full);
+    background: var(--color-blue);
+    box-shadow: 0 0 8px var(--color-blue);
+  }
+
+  /* ============================================================
+     §4.7  BADGE & TAG SYSTEM
+     ============================================================ */
+
+  /* Technology badge */
+  .badge-tech {
+    display:        inline-flex;
+    align-items:    center;
+    gap:            0.25rem;
+    padding:        0.2rem 0.6rem;
+    border-radius:  var(--radius-sm);
+    font-family:    'JetBrains Mono', monospace;
+    font-size:      0.68rem;
+    font-weight:    var(--fw-medium);
+    letter-spacing: 0.02em;
+    background:     rgba(59, 130, 246, 0.08);
+    color:          var(--palette-blue-400);
+    border:         1px solid rgba(59, 130, 246, 0.18);
+    white-space:    nowrap;
+    transition:
+      background   var(--dur-fast) var(--ease-out),
+      border-color var(--dur-fast) var(--ease-out),
+      transform    var(--dur-fast) var(--ease-out);
+  }
+  .badge-tech:hover {
+    background:   rgba(59, 130, 246, 0.14);
+    border-color: rgba(59, 130, 246, 0.35);
+    transform:    translateY(-1px);
+  }
+
+  /* Status badge — availability */
+  .badge-status {
+    display:     inline-flex;
+    align-items: center;
+    gap:         var(--space-sm);
+    padding:     0.375rem 0.875rem;
+    border-radius: var(--radius-full);
+    font-size:   var(--type-caption-size);
+    font-weight: var(--fw-medium);
+    backdrop-filter: blur(8px);
+    border:      1px solid;
+    white-space: nowrap;
+  }
+  .badge-status-green {
+    background:   rgba(52, 211, 153, 0.10);
+    border-color: rgba(52, 211, 153, 0.25);
+    color:        var(--palette-emerald-400);
+  }
+  .badge-status-blue {
+    background:   rgba(59, 130, 246, 0.10);
+    border-color: rgba(59, 130, 246, 0.25);
+    color:        var(--palette-blue-400);
+  }
+
+  /* Filter tab (skills/projects switcher) */
+  .filter-tab {
+    position:        relative;
+    display:         inline-flex;
+    align-items:     center;
+    justify-content: center;
+    padding:         0.5rem 1.125rem;
+    min-height:      2.25rem;
+    border-radius:   var(--radius-md);
+    font-family:     'Space Grotesk', sans-serif;
+    font-size:       var(--type-body-sm-size);
+    font-weight:     var(--fw-medium);
+    color:           var(--color-text-muted);
+    background:      transparent;
+    border:          none;
+    cursor:          pointer;
+    transition:      color var(--dur-normal) var(--ease-out);
+    white-space:     nowrap;
+    z-index:         1;
+  }
+  .filter-tab:hover { color: var(--color-text-primary); }
+  .filter-tab.active { color: #fff; }
+
+  /* Filter tabs wrapper */
+  .filter-tabs {
+    display:         flex;
+    flex-wrap:       wrap;
+    gap:             var(--space-xs);
+    padding:         var(--space-xs);
+    border-radius:   var(--radius-xl);
+    background:      var(--color-glass-base);
+    border:          1px solid var(--color-border-default);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* ============================================================
+     §4.8  BACKGROUND UTILITIES
+     ============================================================ */
+
+  /* Dot grid background pattern */
+  .bg-dot-grid {
+    background-image: radial-gradient(
+      circle,
+      rgba(59, 130, 246, 0.16) 1px,
+      transparent 1px
+    );
+    background-size: 30px 30px;
+  }
+
+  /* Mesh gradient — hero */
+  .bg-mesh-hero {
+    background: var(--mesh-hero);
+  }
+
+  /* Mesh gradient — alt sections */
+  .bg-mesh-alt {
+    background: var(--mesh-alt);
+  }
+
+  /* Ambient background orb */
+  .bg-orb {
+    position:       absolute;
+    border-radius:  50%;
+    filter:         blur(90px);
+    pointer-events: none;
+    will-change:    transform;
+    animation:      kf-float-drift 12s ease-in-out infinite;
+  }
+  .bg-orb-blue   { background: rgba(59,  130, 246, 0.18); }
+  .bg-orb-purple { background: rgba(139, 92,  246, 0.14); }
+  .bg-orb-cyan   { background: rgba(6,   182, 212, 0.12); }
+
+  /* Gradient border on hover */
+  .border-gradient-hover {
+    position:      relative;
+    border-radius: inherit;
+  }
+  .border-gradient-hover::before {
+    content: '';
+    position: absolute; inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--grad-primary);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--dur-medium) var(--ease-out);
+  }
+  .border-gradient-hover:hover::before { opacity: 1; }
+
+  /* ============================================================
+     §4.9  TIMELINE COMPONENT
+     ============================================================ */
+
+  .timeline-track {
+    position:    absolute;
+    left:        1.75rem;
+    top:         0; bottom: 0;
+    width:       1px;
+    background:  linear-gradient(
+      to bottom,
+      rgba(59,130,246,0)    0%,
+      rgba(59,130,246,0.55) 12%,
+      rgba(6,182,212,0.55)  50%,
+      rgba(139,92,246,0.55) 88%,
+      rgba(139,92,246,0)    100%
+    );
+  }
+
+  .timeline-node {
+    position:    absolute;
+    left:        1.75rem;
+    width:       14px; height: 14px;
+    border-radius: var(--radius-full);
+    transform:   translateX(-50%);
+    background:  var(--grad-primary);
+    box-shadow:  0 0 0 3px var(--color-space-void), var(--glow-blue);
+  }
+  .timeline-node::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(59, 130, 246, 0.30);
+    animation: kf-pulse-ring 2.2s ease-in-out infinite;
+  }
+
+  /* ============================================================
+     §4.10  SCROLL PROGRESS BAR
+     ============================================================ */
+
+  .scroll-progress {
+    position:       fixed;
+    top: 0; left: 0;
+    height:         2px;
+    background:     linear-gradient(90deg, #3B82F6, #06B6D4, #8B5CF6, #00D9FF);
+    background-size: 300% 100%;
+    animation:      kf-shimmer 3s linear infinite;
+    transform-origin: left;
+    z-index:        var(--z-top);
+    box-shadow:     0 0 12px rgba(59, 130, 246, 0.7);
+    border-radius:  0 2px 2px 0;
+    transition:     width 0.1s linear;
+  }
+
+  /* ============================================================
+     §4.11  SKILL ARC (SVG Circular Progress)
+     ============================================================ */
+
+  .skill-arc-bg {
+    fill:   none;
+    stroke: rgba(59, 130, 246, 0.12);
+    stroke-linecap: round;
+  }
+  .skill-arc-fill {
+    fill:             none;
+    stroke-linecap:   round;
+    stroke-dasharray: 226;        /* 2 × π × r, r=36 */
+    stroke-dashoffset: 226;
+    transform:        rotate(-90deg);
+    transform-origin: 50% 50%;
+    transition:       stroke-dashoffset 1.2s var(--ease-out-expo);
+  }
+}
+
+
+/* ================================================================
+   §5  UTILITY LAYER  —  Atomic helpers
+   ================================================================ */
+@layer utilities {
+
+  /* Fonts */
+  .font-display { font-family: 'Space Grotesk', system-ui, sans-serif; }
+  .font-body    { font-family: 'Inter', system-ui, sans-serif; }
+  .font-code    { font-family: 'JetBrains Mono', monospace; }
+
+  /* Text color shortcuts */
+  .text-c-primary   { color: var(--color-text-primary)   !important; }
+  .text-c-secondary { color: var(--color-text-secondary) !important; }
+  .text-c-muted     { color: var(--color-text-muted)     !important; }
+  .text-c-blue      { color: var(--color-blue-light)     !important; }
+  .text-c-cyan      { color: var(--color-cyan)           !important; }
+  .text-c-purple    { color: var(--color-purple-light)   !important; }
+  .text-c-neon      { color: var(--color-neon)           !important; }
+
+  /* Glow box-shadow utilities */
+  .glow-blue     { box-shadow: var(--glow-blue); }
+  .glow-cyan     { box-shadow: var(--glow-cyan); }
+  .glow-purple   { box-shadow: var(--glow-purple); }
+  .glow-neon     { box-shadow: var(--glow-neon); }
+  .glow-amber    { box-shadow: var(--glow-amber); }
+
+  /* Surface backgrounds */
+  .bg-void     { background-color: var(--color-space-void)     !important; }
+  .bg-surface  { background-color: var(--color-space-surface)  !important; }
+  .bg-elevated { background-color: var(--color-space-elevated) !important; }
+  .bg-panel    { background-color: var(--color-space-panel)    !important; }
+  .bg-glass    { background:       var(--color-glass-base)     !important; }
+
+  /* Borders */
+  .border-subtle  { border-color: var(--color-border-subtle)  !important; }
+  .border-default { border-color: var(--color-border-default) !important; }
+  .border-mid     { border-color: var(--color-border-mid)     !important; }
+  .border-strong  { border-color: var(--color-border-strong)  !important; }
+
+  /* Depth shadows */
+  .shadow-d1    { box-shadow: var(--shadow-depth-1) !important; }
+  .shadow-d2    { box-shadow: var(--shadow-depth-2) !important; }
+  .shadow-d3    { box-shadow: var(--shadow-depth-3) !important; }
+  .shadow-float { box-shadow: var(--shadow-float)   !important; }
+  .shadow-modal { box-shadow: var(--shadow-modal)   !important; }
+
+  /* Animation helpers */
+  .anim-float       { animation: kf-float      6s ease-in-out infinite; }
+  .anim-float-slow  { animation: kf-float      9s ease-in-out infinite; }
+  .anim-float-drift { animation: kf-float-drift 8s ease-in-out infinite; }
+  .anim-shimmer     { animation: kf-shimmer    4s linear infinite; }
+  .anim-pulse-ring  { animation: kf-pulse-ring 2.2s ease-in-out infinite; }
+  .anim-blob        { animation: kf-blob       14s ease-in-out infinite; }
+  .anim-spin-slow   { animation: kf-spin-slow  14s linear infinite; }
+  .anim-neon-pulse  { animation: kf-neon-pulse 2.5s ease-in-out infinite; }
+  .anim-glow-throb  { animation: kf-glow-throb 3s ease-in-out infinite; }
+  .anim-slide-up    { animation: kf-slide-up   0.7s var(--ease-out-expo) forwards; }
+  .anim-fade-in     { animation: kf-fade-in    0.5s var(--ease-out) forwards; }
+  .anim-scale-in    { animation: kf-scale-in   0.5s var(--ease-spring) forwards; }
+
+  /* No overflow escape */
+  .no-overflow { overflow: hidden; max-width: 100%; }
+
+  /* Touch-friendly minimum tap target */
+  .tap-target {
+    min-width:  2.75rem;   /* 44px */
+    min-height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+
+/* ================================================================
+   §6  KEYFRAMES  —  All animation definitions
+   ================================================================ */
+
+/* Shimmer / gradient scroll */
+@keyframes kf-shimmer {
+  0%   { background-position: -300% center; }
+  100% { background-position:  300% center; }
+}
+
+/* Pulse ring (timeline node) */
+@keyframes kf-pulse-ring {
+  0%, 100% { opacity: 0.2;  transform: scale(1); }
+  50%       { opacity: 0.75; transform: scale(1.4); }
+}
+
+/* Float — vertical */
+@keyframes kf-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-14px); }
+}
+
+/* Float — drift with rotation */
+@keyframes kf-float-drift {
+  0%, 100% { transform: translateY(0)   translateX(0)  rotate(0deg); }
+  33%       { transform: translateY(-18px) translateX(7px)  rotate(2.5deg); }
+  66%       { transform: translateY(-9px)  translateX(-5px) rotate(-1.5deg); }
+}
+
+/* Slide up entrance */
+@keyframes kf-slide-up {
+  from { opacity: 0; transform: translateY(38px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* Fade in */
+@keyframes kf-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Scale in entrance */
+@keyframes kf-scale-in {
+  from { opacity: 0; transform: scale(0.84); }
+  to   { opacity: 1; transform: scale(1);    }
+}
+
+/* Spin slow — orbit rings */
+@keyframes kf-spin-slow {
+  from { transform: rotate(0deg);   }
+  to   { transform: rotate(360deg); }
+}
+
+/* Blob morph */
+@keyframes kf-blob {
+  0%, 100% { border-radius: 60% 40% 32% 68% / 58% 36% 64% 42%; }
+  33%       { border-radius: 42% 58% 60% 40% / 48% 60% 40% 52%; }
+  66%       { border-radius: 32% 68% 44% 56% / 62% 42% 58% 38%; }
+}
+
+/* Neon opacity pulse */
+@keyframes kf-neon-pulse {
+  0%, 100% { opacity: 0.55; }
+  50%       { opacity: 1.00; }
+}
+
+/* Glow intensity throb */
+@keyframes kf-glow-throb {
+  0%, 100% {
+    box-shadow: 0 0 18px rgba(59,130,246,0.25), 0 0 40px rgba(59,130,246,0.08);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(59,130,246,0.55), 0 0 80px rgba(59,130,246,0.20);
+  }
+}
+
+/* Slide down — navbar entrance */
+@keyframes kf-slide-down {
+  from { opacity: 0; transform: translateY(-24px); }
+  to   { opacity: 1; transform: translateY(0);     }
+}
+
+/* Slide left (mobile menu) */
+@keyframes kf-slide-right {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0);    }
+}
+
+/* Counter count-up (JS-driven via CSS animation) */
+@keyframes kf-count-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* Background mesh gradient shift */
+@keyframes kf-gradient-shift {
+  0%, 100% { background-position: 0%   50%; }
+  50%       { background-position: 100% 50%; }
+}
+
+/* Dot orbit around avatar */
+@keyframes kf-dot-orbit {
+  from { transform: rotate(0deg)   translateX(76px) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(76px) rotate(-360deg); }
+}
+
+
+/* ================================================================
+   §7  RESPONSIVE SYSTEM  —  Mobile-first breakpoints
+       xs: 420px  |  sm: 640px  |  md: 768px
+       lg: 1024px |  xl: 1280px |  2xl: 1440px  |  3xl: 1920px
+   ================================================================ */
+
+/* ── §7.1  Mobile baseline (320px – 419px) ─────────────────────── */
+/* All default styles above are mobile-first                        */
+
+/* Reduce blur on mobile for perf */
+@media (max-width: 419px) {
+  .card-l1,
+  .card-l2,
+  .card-l3,
+  .card-feature,
+  .filter-tabs {
+    backdrop-filter: blur(10px) saturate(140%);
+    -webkit-backdrop-filter: blur(10px) saturate(140%);
+  }
+
+  /* Tighter section spacing on very small screens */
+  :root {
+    --section-py: 3rem;
+    --space-3xl:  3.5rem;
+    --space-4xl:  5rem;
+  }
+
+  /* Prevent overflow escape */
+  section, main { overflow-x: hidden; max-width: 100vw; }
+}
+
+/* ── §7.2  XS  ≥ 420px ──────────────────────────────────────────── */
+@media (min-width: 420px) {
+  :root {
+    --section-py: 3.5rem;
+  }
+}
+
+/* ── §7.3  SM  ≥ 640px ──────────────────────────────────────────── */
+@media (min-width: 640px) {
+  :root {
+    --section-py:    4rem;
+    --container-pad: 1.5rem;
+  }
+
+  .section-hero { padding-top: var(--space-3xl); }
+}
+
+/* ── §7.4  MD  ≥ 768px (Tablet) ─────────────────────────────────── */
+@media (min-width: 768px) {
+  :root {
+    --section-py:    5rem;
+    --container-pad: 2rem;
+    --space-3xl:     5rem;
+  }
+
+  /* Restore full blur on tablet+ */
+  .card-l1,
+  .card-l2,
+  .card-l3,
+  .card-feature {
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+  }
+}
+
+/* ── §7.5  LG  ≥ 1024px (Laptop) ───────────────────────────────── */
+@media (min-width: 1024px) {
+  :root {
+    --section-py:    6rem;
+    --container-pad: 2.5rem;
+  }
+
+  .section-hero {
+    padding-top:    5rem;
+    padding-bottom: 4rem;
+  }
+}
+
+/* ── §7.6  XL  ≥ 1280px (Desktop) ──────────────────────────────── */
+@media (min-width: 1280px) {
+  :root {
+    --section-py:    7rem;
+    --container-pad: 3rem;
+    --space-3xl:     5.5rem;
+    --space-4xl:     8rem;
+  }
+}
+
+/* ── §7.7  2XL  ≥ 1440px (Large Desktop) ───────────────────────── */
+@media (min-width: 1440px) {
+  :root {
+    --container-max: 1360px;
+    --container-pad: 2rem;     /* narrower pad inside wider max  */
+    --section-py:    7.5rem;
+  }
+}
+
+/* ── §7.8  3XL  ≥ 1920px (Ultra-wide) ──────────────────────────── */
+@media (min-width: 1920px) {
+  :root {
+    --container-max: 1600px;
+    --section-py:    8rem;
+  }
+
+  /* Stronger depth effects on large screens */
+  .card-l3:hover {
+    box-shadow: var(--shadow-modal), var(--glow-blue-strong);
+  }
+}
+
+
+/* ================================================================
+   §8  REDUCED MOTION  —  Accessibility
+   ================================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration:       0.01ms !important;
+    animation-iteration-count: 1     !important;
+    transition-duration:      0.1ms  !important;
+    scroll-behavior:          auto   !important;
+  }
+
+  .bg-orb { animation: none; }
+  .shimmer-text { animation: none; -webkit-text-fill-color: var(--color-blue-light); }
+}
+
+
+/* ================================================================
+   §9  OVERFLOW SAFETY  —  Global overflow prevention
+   ================================================================ */
+html, body {
+  overflow-x: hidden;
+  max-width:  100vw;
+}
+
+section {
+  overflow-x: hidden;
+  max-width:  100%;
+}
+
+img, video, iframe, canvas, svg {
+  max-width: 100%;
+  height:    auto;
+}
